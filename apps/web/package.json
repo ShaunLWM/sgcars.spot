@@ -1,0 +1,30 @@
+{
+  "name": "web",
+  "version": "0.0.1",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "pnpm biome check --write app components hooks lib",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.69.0",
+    "@workspace/ui": "workspace:*",
+    "lucide-react": "^0.483.0",
+    "next": "^15.2.3",
+    "next-themes": "^0.4.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "@types/react": "^19.0.11",
+    "@types/react-dom": "^19.0.4",
+    "@workspace/typescript-config": "workspace:*",
+    "react-scan": "^0.3.3",
+    "typescript": "^5.8.2"
+  }
+}

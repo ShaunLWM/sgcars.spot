@@ -1,0 +1,24 @@
+{
+  "name": "shadcn-ui-monorepo",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "format": "biome check --write",
+    "dev:docker": "docker compose up --build",
+    "prod:docker": "docker compose -f compose.yml up --build",
+    "shadcn": "cd packages/ui && npx shadcn@canary"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@workspace/typescript-config": "workspace:*",
+    "turbo": "^2.5.0",
+    "typescript": "5.8.3"
+  },
+  "packageManager": "pnpm@10.9.0+sha512.0486e394640d3c1fb3c9d43d49cf92879ff74f8516959c235308f5a8f62e2e19528a65cdc2a3058f587cde71eba3d5b56327c8c33a97e4c4051ca48a10ca2d5f",
+  "engines": {
+    "node": ">=22.14.0"
+  }
+}
