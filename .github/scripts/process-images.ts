@@ -15,8 +15,9 @@ console.log(`Using workspace directory: ${WORKSPACE_DIR}`);
 
 // Define paths relative to workspace
 const UPLOADS_DIR = path.resolve(WORKSPACE_DIR, "apps/app/src/uploads");
-const ASSETS_DIR = path.resolve(WORKSPACE_DIR, "apps/app/src/assets");
-const IMAGES_JSON_PATH = path.resolve(ASSETS_DIR, "images.json");
+const ASSETS_DIR = path.resolve(WORKSPACE_DIR, "apps/app/public/assets");
+const METADATA_DIR = path.resolve(WORKSPACE_DIR, "apps/app/src/assets");
+const IMAGES_JSON_PATH = path.resolve(METADATA_DIR, "images.json");
 
 // Maximum width/height for web-friendly images
 const MAX_SIZE = 1200;
@@ -27,11 +28,13 @@ async function processImages(): Promise<void> {
 		console.log(`Current working directory: ${process.cwd()}`);
 		console.log(`Uploads directory: ${UPLOADS_DIR}`);
 		console.log(`Assets directory: ${ASSETS_DIR}`);
+		console.log(`Metadata directory: ${METADATA_DIR}`);
 		console.log(`Images JSON path: ${IMAGES_JSON_PATH}`);
 
-		// Ensure assets directory exists
+		// Ensure directories exist
 		await fs.ensureDir(ASSETS_DIR);
-		console.log("Assets directory ensured");
+		await fs.ensureDir(METADATA_DIR);
+		console.log("Directories ensured");
 
 		// Read current images.json
 		let imagesData: ImageMetadata[] = [];
