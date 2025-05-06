@@ -1,0 +1,21 @@
+{
+  "name": "image-processing-scripts",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Scripts for image processing in GitHub actions",
+  "main": "dist/process-images.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node process-images.ts"
+  },
+  "dependencies": {
+    "fs-extra": "^11.3.0",
+    "sharp": "^0.34.1"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.15.12",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}

@@ -6,7 +6,6 @@ import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useSession } from "./lib/auth-client";
 import { Providers } from "./lib/providers";
 import { routeTree } from "./routeTree.gen";
 
@@ -36,8 +35,7 @@ declare module "@tanstack/react-router" {
 }
 
 function App() {
-	const auth = useSession();
-	return <RouterProvider router={router} context={{ auth }} />;
+	return <RouterProvider router={router} />;
 }
 
 const rootElement = document.getElementById("root");

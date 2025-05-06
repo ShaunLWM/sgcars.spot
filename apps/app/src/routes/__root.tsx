@@ -1,4 +1,3 @@
-import { AuthObserver } from "@/lib/auth-observer";
 import type { RouteContext } from "@/types";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
@@ -24,7 +23,6 @@ export const Route = createRootRouteWithContext<RouteContext>()({
 function RootComponent() {
 	return (
 		<>
-			<AuthObserver />
 			<Outlet />
 			<ReactQueryDevtools buttonPosition="bottom-left" />
 			<TanStackRouterDevtools position="bottom-right" />
