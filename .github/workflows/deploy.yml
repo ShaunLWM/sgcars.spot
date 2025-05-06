@@ -41,7 +41,7 @@ jobs:
         run: |
           git config --global user.name 'GitHub Actions Bot'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add apps/app/src/assets/
+          git add apps/app/src/
           git commit -m "Process uploaded images" || echo "No changes to commit"
           git push
         
