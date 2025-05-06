@@ -79,8 +79,8 @@ async function processImages(): Promise<void> {
 
 			// Generate new filename based on current milliseconds
 			const timestamp = Date.now();
-			const extension = path.extname(file);
-			const newFilename = `${timestamp}${extension}`;
+			// Always use .webp extension regardless of original format
+			const newFilename = `${timestamp}.webp`;
 			const outputPath = path.join(ASSETS_DIR, newFilename);
 			console.log(`New filename: ${newFilename}`);
 
@@ -113,10 +113,27 @@ async function processImages(): Promise<void> {
 
 			// Resize and save the image
 			console.log("Resizing and saving image");
+
+			// Get original file size
+			const originalFileStats = await fs.stat(filePath);
+			console.log(
+				`Original file size: ${(originalFileStats.size / 1024).toFixed(2)} KB`,
+			);
+
 			await sharp(filePath)
 				.resize(width, height, { fit: "inside", withoutEnlargement: true })
+				.webp({ quality: 80 }) // Convert to WebP format with 80% quality
 				.toFile(outputPath);
-			console.log("Image saved successfully");
+
+			// Get converted file size
+			const convertedFileStats = await fs.stat(outputPath);
+			console.log(
+				`WebP file size: ${(convertedFileStats.size / 1024).toFixed(2)} KB`,
+			);
+			console.log(
+				`Size reduction: ${(100 - (convertedFileStats.size / originalFileStats.size) * 100).toFixed(2)}%`,
+			);
+			console.log("Image saved successfully and converted to WebP");
 
 			// Add to images.json
 			imagesData.push({
