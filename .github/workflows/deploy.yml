@@ -16,24 +16,25 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
+        
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 10.9.0
-        
+          
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22.14.0'
           cache: 'pnpm'
-
-      - name: Process images
-        id: process
+  
+      - name: Install dependencies
         run: |
+          # Install dependencies in scripts directory
           cd .github/scripts
           pnpm i
-          npx tsx process-images.ts
+          cd ../..
+          npx tsx .github/scripts/process-images.ts
         continue-on-error: false
           
       - name: Commit and push changes

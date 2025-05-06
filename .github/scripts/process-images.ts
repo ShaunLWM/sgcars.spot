@@ -9,9 +9,14 @@ interface ImageMetadata {
 	h: number;
 }
 
-const UPLOADS_DIR = path.join(process.cwd(), "apps/app/src/uploads");
-const ASSETS_DIR = path.join(process.cwd(), "apps/app/src/assets");
-const IMAGES_JSON_PATH = path.join(ASSETS_DIR, "images.json");
+// Get workspace directory (root of repository)
+const WORKSPACE_DIR = process.env.GITHUB_WORKSPACE || process.cwd();
+console.log(`Using workspace directory: ${WORKSPACE_DIR}`);
+
+// Define paths relative to workspace
+const UPLOADS_DIR = path.resolve(WORKSPACE_DIR, "apps/app/src/uploads");
+const ASSETS_DIR = path.resolve(WORKSPACE_DIR, "apps/app/src/assets");
+const IMAGES_JSON_PATH = path.resolve(ASSETS_DIR, "images.json");
 
 // Maximum width/height for web-friendly images
 const MAX_SIZE = 1200;
@@ -22,6 +27,7 @@ async function processImages(): Promise<void> {
 		console.log(`Current working directory: ${process.cwd()}`);
 		console.log(`Uploads directory: ${UPLOADS_DIR}`);
 		console.log(`Assets directory: ${ASSETS_DIR}`);
+		console.log(`Images JSON path: ${IMAGES_JSON_PATH}`);
 
 		// Ensure assets directory exists
 		await fs.ensureDir(ASSETS_DIR);
@@ -42,12 +48,25 @@ async function processImages(): Promise<void> {
 			console.log("Created new images.json file");
 		}
 
+		// List all directories and files for debugging
+		console.log("\n== DIRECTORY LISTING ==");
+		console.log("Workspace directory:");
+		console.log(await fs.readdir(WORKSPACE_DIR));
+		console.log("\nApps directory:");
+		try {
+			console.log(await fs.readdir(path.join(WORKSPACE_DIR, "apps")));
+		} catch (error) {
+			console.error(
+				`Error reading apps directory: ${(error as Error).message}`,
+			);
+		}
+
 		// Get all files in uploads directory
 		const files = await fs.readdir(UPLOADS_DIR);
-		console.log(`Found ${files.length} files in uploads directory`);
+		console.log(`\nFound ${files.length} files in uploads directory`);
 
 		// Filter for image files
-		const imageFiles = files.filter((file) => {
+		const imageFiles = files.filter((file: string) => {
 			const ext = path.extname(file).toLowerCase();
 			return [".jpg", ".jpeg", ".png", ".gif", ".webp"].includes(ext);
 		});
