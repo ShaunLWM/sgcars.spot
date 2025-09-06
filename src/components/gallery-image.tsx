@@ -3,19 +3,18 @@ import type { ImageData } from '../types/gallery'
 
 type GalleryImageProps = {
   image: ImageData
-  onClick: (image: ImageData) => void
+  onClick: () => void
 }
 
 export const GalleryImage = ({ image, onClick }: GalleryImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false)
 
   const thumbSrc = `/img/thumb/${image.f}`
-  const fullSrc = `/img/full/${image.f}`
 
   return (
     <div 
-      onClick={() => onClick(image)}
-      className="cursor-pointer overflow-hidden rounded-lg bg-gray-100 transition-transform hover:scale-105"
+      onClick={onClick}
+      className="cursor-pointer overflow-hidden rounded bg-gray-100 transition-transform hover:scale-[1.02]"
       style={{ aspectRatio: `${image.tw}/${image.th}` }}
     >
       <img
