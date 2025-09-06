@@ -1,0 +1,9 @@
+{
+  "name": "image-processor",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "heic-convert": "^2.1.0",
+    "sharp": "^0.33.5"
+  }
+}
