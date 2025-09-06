@@ -11,7 +11,7 @@ const DATA_FILE = '../../public/data.json'
 
 const SUPPORTED_FORMATS = ['.jpg', '.jpeg', '.png', '.webp', '.heic', '.heif']
 const MAX_DIMENSION = 1920
-const THUMB_MAX_WIDTH = 500
+const THUMB_MAX_WIDTH = 200
 const QUALITY = 85
 
 async function ensureDir(dir) {
