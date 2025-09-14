@@ -57,11 +57,11 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add public/img/ public/data.json
         find uploads -type f -not -name '.gitkeep' -delete 2>/dev/null || true
         if git diff --staged --quiet; then
           echo "No changes to commit"
         else
+          git add .
           git commit -m "chore: process uploaded images"
           git push
         fi
