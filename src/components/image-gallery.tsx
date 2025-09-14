@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { Masonry } from "masonic";
-import { useEffect, useState } from "react";
+import { Masonry, type RenderComponentProps } from "masonic";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Lightbox from "yet-another-react-lightbox-lite";
 import "yet-another-react-lightbox-lite/styles.css";
 import { GalleryService } from "../services/gallery-service";
@@ -24,18 +24,33 @@ export const ImageGallery = () => {
 	const [lightboxIndex, setLightboxIndex] = useState<number>();
 	const columnWidth = useResponsiveColumnWidth();
 
-	const { data, isLoading, error } = useQuery({
+	const {
+		data: { images = [] } = {},
+		isLoading,
+		error,
+	} = useQuery({
 		queryKey: ["gallery-images"] as const,
 		queryFn: GalleryService.fetchImages,
 	});
 
-	const images = data?.images || [];
+	const slides = useMemo(
+		() =>
+			images.map((image) => ({
+				src: `/img/full/${image.f}`,
+				width: image.w,
+				height: image.h,
+			})),
+		[images],
+	);
 
-	const slides = images.map((image) => ({
-		src: `/img/full/${image.f}`,
-		width: image.w,
-		height: image.h,
-	}));
+	const renderItem = useCallback(
+		({ data, index }: RenderComponentProps<(typeof images)[number]>) => {
+			return (
+				<GalleryImage image={data} onClick={() => setLightboxIndex(index)} />
+			);
+		},
+		[],
+	);
 
 	if (isLoading) {
 		return (
@@ -68,9 +83,7 @@ export const ImageGallery = () => {
 				columnGutter={8}
 				columnWidth={columnWidth}
 				overscanBy={5}
-				render={({ data: image, index }) => (
-					<GalleryImage image={image} onClick={() => setLightboxIndex(index)} />
-				)}
+				render={renderItem}
 			/>
 
 			<Lightbox
