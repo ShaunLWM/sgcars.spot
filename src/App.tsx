@@ -3,7 +3,7 @@ import { ImageGallery } from "./components/image-gallery";
 
 function App() {
 	return (
-		<div className="min-h-screen bg-gray-50">
+		<div className="min-h-screen">
 			<main>
 				<ImageGallery />
 			</main>

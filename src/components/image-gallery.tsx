@@ -77,7 +77,7 @@ export const ImageGallery = () => {
 	}
 
 	return (
-		<div className="px-2">
+		<div>
 			<Masonry
 				items={images}
 				columnGutter={8}
